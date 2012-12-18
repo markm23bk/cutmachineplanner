@@ -28,8 +28,8 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPl
 
 Statement st = conn.createStatement();
 
-
-
+//
+//
 //st.executeUpdate("DROP TABLE inputmaterial CASCADE");
 //st.executeUpdate("DROP TABLE deadline CASCADE");
 //st.executeUpdate("DROP TABLE termin CASCADE");
@@ -38,8 +38,9 @@ Statement st = conn.createStatement();
 //st.executeUpdate("DROP TABLE druhpapiru CASCADE");
 //st.executeUpdate("DROP TABLE state CASCADE");
 //st.executeUpdate("DROP TABLE person CASCADE");
-
+//st.executeUpdate("DROP TABLE capacity CASCADE");
 //
+
 //
 //st.executeUpdate("CREATE TABLE druhpapiru (cislopap INT,druhpap VARCHAR(13),"
 //         + "CONSTRAINT pk_cislopap PRIMARY KEY (cislopap));");
@@ -91,6 +92,33 @@ Statement st = conn.createStatement();
 //        + "CONSTRAINT pk_datum PRIMARY KEY (day,mounth,year));");
 //       
 
+//st.executeUpdate("INSERT INTO outputmaterial "
+//        + "VALUES (1,40,40,50,50,60,60,70,70,90,90,20);");
+//st.executeUpdate("INSERT INTO outputmaterial "
+//        + "VALUES (2,40,40,50,50,60,60,70,70,90,90,20);");
+//st.executeUpdate("INSERT INTO outputmaterial "
+//        + "VALUES (3,40,40,50,50,60,60,70,70,90,90,20);");
+//st.executeUpdate("INSERT INTO outputmaterial "
+//        + "VALUES (20,40,40,50,50,60,60,70,70,90,90,20);");
+
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (3,'VC TR');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (4,'UY TO');");
+
+//st.executeUpdate("INSERT INTO person "
+//        + "VALUES (1,'pepa','nova','user1','heslo1',1);");
+//st.executeUpdate("INSERT INTO person "
+//        + "VALUES (2,'petr','jouda','user2','heslo2',1);");
+//st.executeUpdate("INSERT INTO person "
+//        + "VALUES (3,'martin','semestra','user3','heslo3',2);");
+//
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (1,'C');");
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (2,'A');");
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (3,'V');");
 
 }catch(Exception e){ System.out.println("Chyba volani, neprihlaseno");
 

@@ -10,6 +10,7 @@ import cutplanner.entity.Deadline;
 import java.awt.Toolkit;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -109,8 +110,8 @@ public class NewJFrame extends javax.swing.JFrame {
         termmin = new javax.swing.JTextField();
         deadmin = new javax.swing.JTextField();
         deadhod = new javax.swing.JTextField();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        termdat = new com.toedter.calendar.JDateChooser();
+        deaddat = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -285,6 +286,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\Sync.png")); // NOI18N
         jButton11.setText("Aktualizuj");
         jButton11.setPreferredSize(new java.awt.Dimension(10, 10));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -382,7 +388,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Gramáž papíru ");
 
-        druhpap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        druhpap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DC UB", "AB UB", "AC DC" }));
 
         jLabel21.setText("datum");
 
@@ -390,9 +396,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel24.setText("minuty");
 
-        grampap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        grampap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "80", "90" }));
 
-        sirrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sirrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "500", "600", "700", "800", "900", "1000", "1100", "1120" }));
 
         jLabel4.setText("Deadline ");
 
@@ -440,7 +446,7 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addGap(34, 34, 34))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(termdat, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -461,7 +467,7 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel4)
                                 .addGap(49, 49, 49)
-                                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(deaddat, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel25)
@@ -586,11 +592,12 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel24))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(termhod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(termmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(termhod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(termmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(termdat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -604,13 +611,13 @@ public class NewJFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(deadmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel28)
-                                            .addComponent(jLabel25))
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel25)
+                                            .addComponent(jLabel28))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(deadhod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                            .addComponent(deaddat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -770,19 +777,21 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-//        
-//        new KonverzeSpecifik(hlazak.getText(),termden.getText(),termmes.getText(),
-//                termrok.getText(),termhod.getText(),termmin.getText(),
-//                cisrol.getText(),delrol.getText(),deadden.getText(),deadmes.getText(),deadrok.getText(),
-//                deadhod.getText(),deadmin.getText());
+        
+ 
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        
+              KonverzeSpecifik.konverze(hlazak.getText(),termhod.getText(),termmin.getText(),
+                cisrol.getText(),delrol.getText(),
+                deadhod.getText(),deadmin.getText(),c1.getText(),c2.getText(),
+                c3.getText(), c4.getText(),c5.getText(),c6.getText(),c7.getText(),
+                c8.getText(), c9.getText(), c10.getText(),c11.getText(), vymet.getText(),
+                termdat.getCalendar(),deaddat.getCalendar(),druhpap.getSelectedIndex(),
+                sirrol.getSelectedIndex(),grampap.getSelectedIndex());
 
-        new KonverzeBobin(c1.getText(), c2.getText(), c3.getText(), c4.getText(),
-                c5.getText(), c6.getText(), c7.getText(), c8.getText(),
-                c9.getText(), c10.getText(), vymet.getText());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void cisrolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cisrolActionPerformed
@@ -794,7 +803,8 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_c1ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:  
+      
         hlazak.setText("");
         termhod.setText("");
         termmin.setText("");
@@ -802,19 +812,32 @@ public class NewJFrame extends javax.swing.JFrame {
         delrol.setText("");
         deadhod.setText("");
         deadmin.setText("");
-        c1.setText("");
-        c2.setText("");
-        c3.setText("");
-        c4.setText("");
-        c5.setText("");
-        c6.setText("");
-        c7.setText("");
-        c8.setText("");
-        c9.setText("");
-        c10.setText("");
-        c11.setText("");
-        vymet.setText("");
+        c1.setText("0");
+        c2.setText("0");
+        c3.setText("0");
+        c4.setText("0");
+        c5.setText("0");
+        c6.setText("0");
+        c7.setText("0");
+        c8.setText("0");
+        c9.setText("0");
+        c10.setText("0");
+        c11.setText("0");
+        vymet.setText("0");
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+     // TODO add your handling code here:
+        
+               try{
+     int z=Integer.parseInt(c11.getText());
+     if(z > 999 || z<=0){throw new Exception();};
+     
+        }catch (Exception y){
+        JOptionPane.showMessageDialog (null, "Chybne zadany format v cisle hlavni zakazky", "Title", JOptionPane.ERROR_MESSAGE);
+        };
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -850,7 +873,7 @@ public class NewJFrame extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        //new DataTables();
+//        new DataTables();
      
         //prevod formatu int a string 
         
@@ -864,13 +887,6 @@ public class NewJFrame extends javax.swing.JFrame {
 //        str2 = str2 + 4;
 //        System.out.println(str2);
         
-JCalendar kalendar = new JCalendar(true);
-//kalendar.setDateFormatString("dd. MM yyyy");
-//JPanel5.add(kalendar);
-kalendar.setEnabled(true);
-kalendar.setSize(43,20);
-kalendar.setLocation(360,160);
-kalendar.setVisible(true);
         
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -896,6 +912,7 @@ kalendar.setVisible(true);
     private javax.swing.JTextField c8;
     private javax.swing.JTextField c9;
     private javax.swing.JTextField cisrol;
+    private com.toedter.calendar.JDateChooser deaddat;
     private javax.swing.JTextField deadhod;
     private javax.swing.JTextField deadmin;
     private javax.swing.JTextField delrol;
@@ -916,8 +933,6 @@ kalendar.setVisible(true);
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -967,6 +982,7 @@ kalendar.setVisible(true);
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox sirrol;
+    private com.toedter.calendar.JDateChooser termdat;
     private javax.swing.JTextField termhod;
     private javax.swing.JTextField termmin;
     private javax.swing.JTextField vymet;
