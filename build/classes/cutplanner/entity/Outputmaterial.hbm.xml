@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14.12.2012 17:06:32 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="cutplanner.entity.Outputmaterial" table="outputmaterial" catalog="cutplanner">
+        <id name="cislozak" type="int">
+            <column name="cislozak" />
+            <generator class="assigned" />
+        </id>
+        <property name="c1" type="java.lang.Integer">
+            <column name="c1" />
+        </property>
+        <property name="c2" type="java.lang.Integer">
+            <column name="c2" />
+        </property>
+        <property name="c3" type="java.lang.Integer">
+            <column name="c3" />
+        </property>
+        <property name="c4" type="java.lang.Integer">
+            <column name="c4" />
+        </property>
+        <property name="c5" type="java.lang.Integer">
+            <column name="c5" />
+        </property>
+        <property name="c6" type="java.lang.Integer">
+            <column name="c6" />
+        </property>
+        <property name="c7" type="java.lang.Integer">
+            <column name="c7" />
+        </property>
+        <property name="c8" type="java.lang.Integer">
+            <column name="c8" />
+        </property>
+        <property name="c9" type="java.lang.Integer">
+            <column name="c9" />
+        </property>
+        <property name="c10" type="java.lang.Integer">
+            <column name="c10" />
+        </property>
+    </class>
+</hibernate-mapping>
