@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18.12.2012 13:29:41 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="CutMachine.entity.Deadline" table="deadline" catalog="cutplanner">
+        <id name="cislozak" type="int">
+            <column name="cislozak" />
+            <generator class="assigned" />
+        </id>
+        <property name="deadday" type="java.lang.Integer">
+            <column name="deadday" />
+        </property>
+        <property name="deadmounth" type="java.lang.Integer">
+            <column name="deadmounth" />
+        </property>
+        <property name="deadyear" type="java.lang.Integer">
+            <column name="deadyear" />
+        </property>
+        <property name="deadhour" type="java.lang.Integer">
+            <column name="deadhour" />
+        </property>
+        <property name="deadminute" type="java.lang.Integer">
+            <column name="deadminute" />
+        </property>
+    </class>
+</hibernate-mapping>

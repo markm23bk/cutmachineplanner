@@ -28,7 +28,7 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPl
 Statement st = conn.createStatement();
 ResultSet rs = st.executeQuery("select cislozak,c1 from outputmaterial order by cislozak desc;");
 
-if (rs.first()){rs.next();nove = rs.getInt(1)+1;}
+if (rs.first()){nove = rs.getInt(1)+1;}
 else nove = 1;
 
 

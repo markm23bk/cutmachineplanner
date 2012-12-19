@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class KonverzeBobin {
    
-   int c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11;
-   int vymet;
+   Integer c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11;
+   Integer vymet;
  
    
     public static boolean kontrolaBobin(String a,String b,String c,String d,String e,String f,

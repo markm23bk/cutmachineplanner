@@ -2,12 +2,13 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="cutplanner"/>
-  <table-filter match-name="responsibility"/>
   <table-filter match-name="druhpapiru"/>
-  <table-filter match-name="state"/>
-  <table-filter match-name="termin"/>
-  <table-filter match-name="inputmaterial"/>
-  <table-filter match-name="person"/>
   <table-filter match-name="deadline"/>
+  <table-filter match-name="responsibility"/>
+  <table-filter match-name="state"/>
+  <table-filter match-name="inputmaterial"/>
   <table-filter match-name="outputmaterial"/>
+  <table-filter match-name="person"/>
+  <table-filter match-name="termin"/>
+  <table-filter match-name="capacity"/>
 </hibernate-reverse-engineering>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18.12.2012 13:29:41 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="CutMachine.entity.Capacity" table="capacity" catalog="cutplanner">
+        <composite-id name="id" class="CutMachine.entity.CapacityId">
+            <key-property name="day" type="int">
+                <column name="day" />
+            </key-property>
+            <key-property name="mounth" type="int">
+                <column name="mounth" />
+            </key-property>
+            <key-property name="year" type="int">
+                <column name="year" />
+            </key-property>
+        </composite-id>
+        <property name="rani" type="java.lang.Integer">
+            <column name="rani" />
+        </property>
+        <property name="odpoledni" type="java.lang.Integer">
+            <column name="odpoledni" />
+        </property>
+        <property name="nocni" type="java.lang.Integer">
+            <column name="nocni" />
+        </property>
+        <property name="volkap" type="java.lang.Integer">
+            <column name="volkap" />
+        </property>
+    </class>
+</hibernate-mapping>

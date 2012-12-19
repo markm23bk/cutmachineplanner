@@ -120,6 +120,24 @@ Statement st = conn.createStatement();
 //st.executeUpdate("INSERT INTO state "
 //        + "VALUES (3,'V');");
 
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (1,'KS UB');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (2,'KS BL');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (3,'SE UB');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (4,'SE BL');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (5,'CL UB');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (6,'KP UB');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (7,'KP BL');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (8,'DU BL');");
+
+
 }catch(Exception e){ System.out.println("Chyba volani, neprihlaseno");
 
 System.out.println(e.toString());}

@@ -12,21 +12,53 @@ import java.util.Calendar;
  */
 public class KonverzeDatum {
     
-  int termden;
-  int termmes;
-  int termrok;
-  int deadden;
-  int deadmes;
-  int deadrok;
+  Integer termden;
+  Integer termmes;
+  Integer termrok;
   
-  KonverzeDatum(Calendar cal1,Calendar cal2){
+  Integer termhod;
+  Integer termin;
+  
+  Integer deadhod;
+  Integer deadmin; 
+  
+  Integer deadden;
+  Integer deadmes;
+  Integer deadrok;
+  
+  Integer endrok;
+  Integer endmes;
+  Integer endden;
+  Integer endhod;
+  Integer endmin;
+  
+  
+  public KonverzeDatum(Calendar ter,Calendar dead,String termho,String termmi,
+                           String deadho,String deadmi,DobaVyroby doba){
    
-   termden = cal1.get(Calendar.DAY_OF_MONTH);
-   termmes = cal1.get(Calendar.MONTH);
-   termrok = cal1.get(Calendar.YEAR);
-   deadden = cal2.get(Calendar.DAY_OF_MONTH);
-   deadmes = cal2.get(Calendar.MONTH);
-   deadrok = cal2.get(Calendar.YEAR);      
+   termden = ter.get(Calendar.DAY_OF_MONTH);
+   termmes = ter.get(Calendar.MONTH)+1;
+   termrok = ter.get(Calendar.YEAR);
+   termhod =Integer.parseInt(termho);
+   termin = Integer.parseInt(termmi);
+  
+   deadden = dead.get(Calendar.DAY_OF_MONTH);
+   deadmes = dead.get(Calendar.MONTH)+1;
+   deadrok = dead.get(Calendar.YEAR);  
+   deadhod = Integer.parseInt(deadho);
+   deadmin = Integer.parseInt(deadmi);
+   
+   //pricteni data a tvorba konecneho terminu 
+    ter.set(termden, termmes, termrok, termhod, termin);
+    ter.add(Calendar.MINUTE,doba.doba);
+          
+   endrok = ter.get(Calendar.YEAR);
+   endmes = ter.get(Calendar.MONTH)+1;
+   endden = ter.get(Calendar.DAY_OF_MONTH);
+   endhod = ter.get(Calendar.HOUR);
+   endmin = ter.get(Calendar.MINUTE);
+   
+    
   }
     
 }
