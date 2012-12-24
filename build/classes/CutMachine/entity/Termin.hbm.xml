@@ -44,5 +44,7 @@
         <property name="state" type="java.lang.Integer">
             <column name="state" />
         </property>
+        
+    
     </class>
 </hibernate-mapping>

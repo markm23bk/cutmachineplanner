@@ -49,13 +49,13 @@ public class KonverzeDatum {
    deadmin = Integer.parseInt(deadmi);
    
    //pricteni data a tvorba konecneho terminu 
-    ter.set(termden, termmes, termrok, termhod, termin);
+    ter.set(termrok, termmes-1, termden, termhod, termin);
     ter.add(Calendar.MINUTE,doba.doba);
           
    endrok = ter.get(Calendar.YEAR);
    endmes = ter.get(Calendar.MONTH)+1;
    endden = ter.get(Calendar.DAY_OF_MONTH);
-   endhod = ter.get(Calendar.HOUR);
+   endhod = ter.get(Calendar.HOUR_OF_DAY);
    endmin = ter.get(Calendar.MINUTE);
    
     

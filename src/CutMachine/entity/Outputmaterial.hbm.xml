@@ -7,6 +7,7 @@
         <id name="cislozak" type="int">
             <column name="cislozak" />
             <generator class="assigned" />
+          
         </id>
         <property name="c1" type="java.lang.Integer">
             <column name="c1" />
@@ -41,5 +42,6 @@
         <property name="c11" type="java.lang.Integer">
             <column name="c11" />
         </property>
+      
     </class>
 </hibernate-mapping>

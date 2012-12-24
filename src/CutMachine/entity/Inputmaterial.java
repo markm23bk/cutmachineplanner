@@ -13,6 +13,7 @@ public class Inputmaterial  implements java.io.Serializable {
      private String cislorol;
      private Integer sire;
      private Integer druhpap;
+     private Druhpapiru druhpapiru;
 
     public Inputmaterial() {
     }
@@ -26,6 +27,14 @@ public class Inputmaterial  implements java.io.Serializable {
        this.cislorol = cislorol;
        this.sire = sire;
        this.druhpap = druhpap;
+    }
+    
+       public Inputmaterial(int cislozak, String cislorol, Integer sire, Integer druhpap, Druhpapiru druhpapiru) {
+       this.cislozak = cislozak;
+       this.cislorol = cislorol;
+       this.sire = sire;
+       this.druhpap = druhpap;
+       this.druhpapiru = druhpapiru;
     }
    
     public int getCislozak() {
@@ -55,6 +64,14 @@ public class Inputmaterial  implements java.io.Serializable {
     
     public void setDruhpap(Integer druhpap) {
         this.druhpap = druhpap;
+    }
+    
+        public Druhpapiru getDruhpapiru() {
+        return this.druhpapiru;
+    }
+    
+    public void setDruhpapapiru(Druhpapiru druhpapiru) {
+        this.druhpapiru = druhpapiru;
     }
 
 

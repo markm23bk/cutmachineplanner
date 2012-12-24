@@ -6,7 +6,8 @@
     <class name="CutMachine.entity.Inputmaterial" table="inputmaterial" catalog="cutplanner">
         <id name="cislozak" type="int">
             <column name="cislozak" />
-            <generator class="assigned" />
+         <generator class="assigned" /> 
+
         </id>
         <property name="cislorol" type="string">
             <column name="cislorol" length="13" />
@@ -15,7 +16,9 @@
             <column name="sire" />
         </property>
         <property name="druhpap" type="java.lang.Integer">
-            <column name="druhpap" />
+            <column name="druhpap" />         
         </property>
+        
+        
     </class>
 </hibernate-mapping>

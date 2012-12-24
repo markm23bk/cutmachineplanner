@@ -5,8 +5,10 @@
 <hibernate-mapping>
     <class name="CutMachine.entity.Deadline" table="deadline" catalog="cutplanner">
         <id name="cislozak" type="int">
-            <column name="cislozak" />
-            <generator class="assigned" />
+           <column name="cislozak" />
+           <generator class="assigned" /> 
+       
+            
         </id>
         <property name="deadday" type="java.lang.Integer">
             <column name="deadday" />
@@ -23,5 +25,7 @@
         <property name="deadminute" type="java.lang.Integer">
             <column name="deadminute" />
         </property>
+        
+  
     </class>
 </hibernate-mapping>

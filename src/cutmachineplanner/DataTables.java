@@ -75,13 +75,13 @@ Statement st = conn.createStatement();
 //        + "endday INT,endmounth INT,endyear INT,endhour INT,endminute INT,vyrdoba INT,state INT, "
 //        + "CONSTRAINT pk_cislozak PRIMARY KEY (cislozak));");
 //
-//
-//
-//st.executeUpdate("CREATE TABLE outputmaterial"
-//        + "(cislozak INT,c1 INT,c2 INT,c3 INT,c4 INT,c5 INT,c6 INT,c7 INT"
-//        + ",c8 INT,c9 INT,c10 INT,c11 INT,"
-//        + "CONSTRAINT pk_cislozak PRIMARY KEY (cislozak));");
-//
+
+
+st.executeUpdate("CREATE TABLE outputmaterial"
+        + "(cislozak INT,c1 INT ,c2 INT ,c3 INT ,c4 INT ,c5 INT ,"
+        + "c6 INT ,c7 INT ,c8 INT ,c9 INT ,c10 INT ,c11 INT,"
+        + "CONSTRAINT pk_cislozak PRIMARY KEY (cislozak));");
+
 //st.executeUpdate("CREATE TABLE responsibility"
 //        + "(cislozak INT,osoba INT, "
 //        + "CONSTRAINT pk_cislozak PRIMARY KEY (cislozak));");
@@ -92,14 +92,22 @@ Statement st = conn.createStatement();
 //        + "CONSTRAINT pk_datum PRIMARY KEY (day,mounth,year));");
 //       
 
-//st.executeUpdate("INSERT INTO outputmaterial "
-//        + "VALUES (1,40,40,50,50,60,60,70,70,90,90,20);");
-//st.executeUpdate("INSERT INTO outputmaterial "
-//        + "VALUES (2,40,40,50,50,60,60,70,70,90,90,20);");
-//st.executeUpdate("INSERT INTO outputmaterial "
-//        + "VALUES (3,40,40,50,50,60,60,70,70,90,90,20);");
-//st.executeUpdate("INSERT INTO outputmaterial "
-//        + "VALUES (20,40,40,50,50,60,60,70,70,90,90,20);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (5,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (6,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (7,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (8,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (1,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (2,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (3,40,40,50,50,60,60,70,0,0,0,0);");
+st.executeUpdate("INSERT INTO outputmaterial "
+        + "VALUES (4,40,40,50,50,60,60,70,0,0,0,0);");
 
 //st.executeUpdate("INSERT INTO druhpapiru "
 //        + "VALUES (3,'VC TR');");
@@ -120,22 +128,22 @@ Statement st = conn.createStatement();
 //st.executeUpdate("INSERT INTO state "
 //        + "VALUES (3,'V');");
 
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (1,'KS UB');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (2,'KS BL');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (3,'SE UB');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (4,'SE BL');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (5,'CL UB');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (6,'KP UB');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (7,'KP BL');");
-st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (8,'DU BL');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (1,'KS UB');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (2,'KS BL');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (3,'SE UB');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (4,'SE BL');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (5,'CL UB');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (6,'KP UB');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (7,'KP BL');");
+//st.executeUpdate("INSERT INTO druhpapiru "
+//        + "VALUES (8,'DU BL');");
 
 
 }catch(Exception e){ System.out.println("Chyba volani, neprihlaseno");

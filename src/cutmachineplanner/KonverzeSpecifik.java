@@ -39,6 +39,7 @@ public class KonverzeSpecifik {
     {
      boolean formatok;
      boolean formatbob;
+     boolean kapacitaok;
      boolean done; 
      
              
@@ -61,17 +62,18 @@ public class KonverzeSpecifik {
                  //tvorba objektu datumu -termin (start,konec) a deadline 
                  KonverzeDatum Dat = new KonverzeDatum (ter,dead,termhod,termmin,deadhod,deadmin,Doba);
                  //ziskani cisla zakazky
-                GeneratorCisZak Cislozak = new GeneratorCisZak ();
+                  GeneratorCisZak Cislozak = new GeneratorCisZak ();
                  //kontrola kapacity
-                //KontrolaKapacity Kap = new KontrolaKapacity (Dat);
-                
-                
+                 kapacitaok = KontrolaKapacity.volnaKapacita(Dat);
+                if(!kapacitaok){JOptionPane.showMessageDialog 
+                  (null, "Neni Kapacita!!! ", "Title", JOptionPane.ERROR_MESSAGE);
+                    return;};
                
                 
         
           
          //ulozeni dat
-       done = UlozData.dataUlozeni(Specifika,Bobiny,Dat,Cislozak,druhpap,Doba);
+         done = UlozData.dataUlozeni(Specifika,Bobiny,Dat,Cislozak,druhpap,Doba);
        
        //vyhodnoceni ulozeni dat
        if (!done){ JOptionPane.showMessageDialog (null, "Ulozeni zakazky se nezdarilo, zadej znovu!", 
@@ -155,7 +157,7 @@ public class KonverzeSpecifik {
          if(grampap == 0){throw new Exception();};
      
         }catch (Exception y){
-        JOptionPane.showMessageDialog (null, "Chybne zadany format dealine terminu minut", "Title", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog (null, "Chybne zadany format gramaze papiru", "Title", JOptionPane.ERROR_MESSAGE);
         format = false;}; 
       
       if (format)return true; else return false;
