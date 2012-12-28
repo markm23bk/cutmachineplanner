@@ -124,7 +124,7 @@ while (rs.next()){
 }catch(Exception e){ System.out.println("kapacita - Chyba volani, neprihlaseno");
 System.out.println(e.toString());}
   
-        System.out.println("navrat");
+        System.out.println("kontrola kapacity");
  return kapacitaok; 
     }
   

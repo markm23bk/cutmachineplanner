@@ -1,5 +1,5 @@
 package CutMachine.entity;
-// Generated 18.12.2012 13:29:40 by Hibernate Tools 3.2.1.GA
+// Generated 25.12.2012 11:45:30 by Hibernate Tools 3.2.1.GA
 
 
 
@@ -13,7 +13,8 @@ public class Inputmaterial  implements java.io.Serializable {
      private String cislorol;
      private Integer sire;
      private Integer druhpap;
-     private Druhpapiru druhpapiru;
+     private Integer delkrol;
+     private String cisvyrobku;
 
     public Inputmaterial() {
     }
@@ -22,19 +23,13 @@ public class Inputmaterial  implements java.io.Serializable {
     public Inputmaterial(int cislozak) {
         this.cislozak = cislozak;
     }
-    public Inputmaterial(int cislozak, String cislorol, Integer sire, Integer druhpap) {
+    public Inputmaterial(int cislozak, String cislorol, Integer sire, Integer druhpap, Integer delkrol, String cisvyrobku) {
        this.cislozak = cislozak;
        this.cislorol = cislorol;
        this.sire = sire;
        this.druhpap = druhpap;
-    }
-    
-       public Inputmaterial(int cislozak, String cislorol, Integer sire, Integer druhpap, Druhpapiru druhpapiru) {
-       this.cislozak = cislozak;
-       this.cislorol = cislorol;
-       this.sire = sire;
-       this.druhpap = druhpap;
-       this.druhpapiru = druhpapiru;
+       this.delkrol = delkrol;
+       this.cisvyrobku = cisvyrobku;
     }
    
     public int getCislozak() {
@@ -65,13 +60,19 @@ public class Inputmaterial  implements java.io.Serializable {
     public void setDruhpap(Integer druhpap) {
         this.druhpap = druhpap;
     }
-    
-        public Druhpapiru getDruhpapiru() {
-        return this.druhpapiru;
+    public Integer getDelkrol() {
+        return this.delkrol;
     }
     
-    public void setDruhpapapiru(Druhpapiru druhpapiru) {
-        this.druhpapiru = druhpapiru;
+    public void setDelkrol(Integer delkrol) {
+        this.delkrol = delkrol;
+    }
+    public String getCisvyrobku() {
+        return this.cisvyrobku;
+    }
+    
+    public void setCisvyrobku(String cisvyrobku) {
+        this.cisvyrobku = cisvyrobku;
     }
 
 

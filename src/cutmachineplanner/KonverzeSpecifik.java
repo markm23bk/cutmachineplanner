@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class KonverzeSpecifik {
     
   
-    String hlavzak;
+    String cisvyr;
     Integer terden;
     Integer termes;
     Integer terrok;
@@ -30,12 +30,12 @@ public class KonverzeSpecifik {
     Integer deadhod;
     Integer deadmin;
     
-    public static void konverze(String hlazak,String termhod,String termmin,
+    public static void konverze(String cislovyr,String termhod,String termmin,
                 String cisrol,String delrol,
                 String deadhod,String deadmin,String c1,String c2,
                 String c3,String c4,String c5,String c6,String c7,
                 String c8,String c9,String c10,String c11,String vymet
-            ,Calendar ter, Calendar dead,int druhpap,String sirrol,int grampa)
+            ,Calendar ter, Calendar dead,int druhpap,String sirrol)
     {
      boolean formatok;
      boolean formatbob;
@@ -44,8 +44,8 @@ public class KonverzeSpecifik {
      
              
         //kontrola formatu specifik
-        formatok = kontrolaSpec( hlazak,termhod,termmin,sirrol,
-                                        cisrol, delrol,deadhod, deadmin,grampa);
+        formatok = kontrolaSpec( cislovyr,termhod,termmin,sirrol,
+                                        cisrol, delrol,deadhod, deadmin);
         //kontrola formatu boboin
          formatbob = KonverzeBobin.kontrolaBobin(c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11);
            
@@ -53,12 +53,12 @@ public class KonverzeSpecifik {
         if(!(formatbob && formatok))return;
         
                 //vytvoreni objektu specifika
-                 KonverzeSpecifik Specifika = new KonverzeSpecifik( hlazak,
-                                                            cisrol, delrol,sirrol,grampa); 
+                 KonverzeSpecifik Specifika = new KonverzeSpecifik( cislovyr,
+                                                            cisrol, delrol,sirrol); 
                  //tvorbu objektu rozmeru boboin
                  KonverzeBobin Bobiny = new KonverzeBobin(c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11);
                  //ziskanni doby zakazky
-                 DobaVyroby Doba = new DobaVyroby (druhpap,grampa);
+                 DobaVyroby Doba = new DobaVyroby (druhpap);
                  //tvorba objektu datumu -termin (start,konec) a deadline 
                  KonverzeDatum Dat = new KonverzeDatum (ter,dead,termhod,termmin,deadhod,deadmin,Doba);
                  //ziskani cisla zakazky
@@ -86,7 +86,7 @@ public class KonverzeSpecifik {
     
     
   public static boolean kontrolaSpec( String hlazak,String termhod,String termmin,String sirrol,
-                                        String cisrol,String delrol,String deadhod,String deadmin,int grampap){
+                                        String cisrol,String delrol,String deadhod,String deadmin){
       boolean format = true;
           //hlavzak 
         try{
@@ -152,26 +152,19 @@ public class KonverzeSpecifik {
         }catch (Exception y){
         JOptionPane.showMessageDialog (null, "Chybne zadany format dealine terminu minut", "Title", JOptionPane.ERROR_MESSAGE);
         format = false;}; 
-      //grampap
-        try{
-         if(grampap == 0){throw new Exception();};
-     
-        }catch (Exception y){
-        JOptionPane.showMessageDialog (null, "Chybne zadany format gramaze papiru", "Title", JOptionPane.ERROR_MESSAGE);
-        format = false;}; 
+    
       
       if (format)return true; else return false;
    
       
   } 
-  
-  public KonverzeSpecifik ( String hlaz,String cisr,String delkr,
-           String sirro, int grampa){    
-    hlavzak= hlaz;
+  //konstruktor
+  public KonverzeSpecifik ( String cislovyr,String cisr,String delkr,String sirro ){    
+    cisvyr = cislovyr;
     cisrol= cisr;
     delkrol=Integer.parseInt(delkr);
     sirrol =Integer.parseInt(sirro); 
-    grampap =(Integer) grampa;
+    
   }
 
 }

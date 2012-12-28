@@ -11,7 +11,7 @@ package cutmachineplanner;
 public class DobaVyroby {
     //doba v minutach 
     int doba;
-    public DobaVyroby(int druhpap,int grampap){
+    public DobaVyroby(int druhpap){
         
        doba =30;
     }

@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18.12.2012 13:29:41 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 25.12.2012 11:45:30 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="CutMachine.entity.Inputmaterial" table="inputmaterial" catalog="cutplanner">
         <id name="cislozak" type="int">
             <column name="cislozak" />
-         <generator class="assigned" /> 
-
+            <generator class="assigned" />
         </id>
         <property name="cislorol" type="string">
             <column name="cislorol" length="13" />
@@ -16,9 +15,13 @@
             <column name="sire" />
         </property>
         <property name="druhpap" type="java.lang.Integer">
-            <column name="druhpap" />         
+            <column name="druhpap" />
         </property>
-        
-        
+        <property name="delkrol" type="java.lang.Integer">
+            <column name="delkrol" />
+        </property>
+        <property name="cisvyrobku" type="string">
+            <column name="cisvyrobku" length="13" />
+        </property>
     </class>
 </hibernate-mapping>

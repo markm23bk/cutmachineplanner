@@ -22,6 +22,7 @@ import org.hibernate.Session;
  */
 public class JtableData {
     
+ 
   
     
  public static Vector vytvorData (Calendar cal){
@@ -37,8 +38,8 @@ public class JtableData {
        System.out.println(rok);
  
    
- Vector <Vector> row = new Vector <Vector>();
-  
+ Vector <Object> row = new Vector <Object>();
+  row.removeAllElements();
  
   try{ Class.forName("com.mysql.jdbc.Driver"); }
   catch(Exception e){ System.out.println("Chyba driveru");
@@ -56,7 +57,7 @@ ResultSet rs = st.executeQuery("SELECT t.cislozak,t.starthour,t.startminute,t.en
 
   while (rs.next()) {
 
- Vector <String> r = new Vector <String>();
+ Vector <Object> r = new Vector <Object>();
   //cislozak
 r.addElement(ciselFormat(rs.getString(1),8));
       System.out.println(ciselFormat(rs.getString(1),8));

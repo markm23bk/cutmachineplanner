@@ -31,7 +31,7 @@ public class UlozData {
     //tab inputmaterial 
      Integer druh = new Integer(druhpap);
      CutMachine.entity.Inputmaterial Input = new  CutMachine.entity.Inputmaterial(Cislozak.nove,
-                  Specifika.cisrol,Specifika.sirrol,druh);
+                  Specifika.cisrol,Specifika.sirrol,druh,Specifika.delkrol,Specifika.cisvyr);
      
     //tab outputmaterial 
   

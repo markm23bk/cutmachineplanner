@@ -18,7 +18,8 @@ public class JtableModel {
     
     public static Vector JtableMod(){
        
-      Vector<String> column = new Vector<String>();
+      Vector<Object> column = new Vector<Object>();
+      column.removeAllElements();
       column.addElement("Cislo zakazky");  
       column.addElement("Poc.termin");
        column.addElement("Konc.termin");
