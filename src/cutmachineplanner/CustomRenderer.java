@@ -23,13 +23,13 @@ class CustomRenderer extends DefaultTableCellRenderer {
         //        int va = Integer.parseInt(number);  
         if (!table.isRowSelected(row)) {
 
-            if (Integer.parseInt((table.getValueAt(row, 0).toString())) == 2) {
+            if (Integer.parseInt((table.getValueAt(row, 15).toString())) == 1) {
 //           if(row == table.getSelectedRow()){  
                 c.setBackground(Color.GREEN);
-            } else if (Integer.parseInt((table.getValueAt(row, 0).toString())) == 4) {
+            } else if (Integer.parseInt((table.getValueAt(row, 15).toString())) == 2) {
                 c.setBackground(Color.RED);
             } else {
-                c.setBackground(table.getBackground());
+                c.setBackground(Color.YELLOW);
             }
         }
 //  

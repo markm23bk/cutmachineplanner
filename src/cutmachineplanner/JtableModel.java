@@ -35,6 +35,7 @@ public class JtableModel {
          column.addElement("c9");
          column.addElement("c10");
          column.addElement("c11");
+         column.addElement("state");
          
          //JtableData.vytvorData(cal)
          

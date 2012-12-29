@@ -80,9 +80,19 @@ public class NewJFrame extends javax.swing.JFrame {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setDataVector(JtableData.vytvorData(Datum.getCalendar()), JtableModel.JtableMod());
         Table1.setModel(tableModel);
-        Table1.repaint();
+        
+        //schovani 16.radku 
+         Table1.getColumnModel().getColumn(15).setMinWidth(0);
+         Table1.getColumnModel().getColumn(15).setMaxWidth(0);
+         Table1.getColumnModel().getColumn(15).setWidth(0);
+       
+        
     }
 
+    
+    
+    
+    
     //metoda otevreni zakazky spustena tlacitkem 
     public void otevriZakazku() {
 
@@ -106,22 +116,30 @@ public class NewJFrame extends javax.swing.JFrame {
         cal3year = Integer.toString(cal3.get(Calendar.YEAR));
         cal3mounth = Integer.toString(cal3.get(Calendar.MONTH) + 1);
         cal3day = Integer.toString(cal3.get(Calendar.DAY_OF_MONTH));
-        cal3hour = Integer.toString(cal3.get(Calendar.HOUR));
+        cal3hour = Integer.toString(cal3.get(Calendar.HOUR_OF_DAY));
         cal3min = Integer.toString(cal3.get(Calendar.MINUTE));
 
 //konverze na format stringu bez nul
         intcisza = Integer.parseInt(cislozakazky);
         strcisza = Integer.toString(intcisza);
+  
 
-
+  
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner", "root", "");
             Statement st = conn.createStatement();
+            
+         ResultSet rs=  st.executeQuery("select state from termin where state = 1 and cislozak = "+strcisza+" ;" );
+            
+       if (rs.first()){
 
             st.executeUpdate("UPDATE termin SET startmounth =" + cal3mounth + ",startday =" + cal3day
                     + ",startyear = " + cal3year + ",starthour = " + cal3hour + ",startminute =" + cal3min + ","
                     + "state=2 where cislozak = " + strcisza + ";");
-
+          
+       } else  JOptionPane.showMessageDialog (null, "Zakazku nelze otevrit, neni ve statusu pripravy", "Title", JOptionPane.ERROR_MESSAGE);
+       
+       
 
         } catch (Exception e) {
             System.out.println("nezdaril se prenos otevreni zakazky");
@@ -129,6 +147,12 @@ public class NewJFrame extends javax.swing.JFrame {
         }
     }
 
+    
+    
+    
+    
+    
+    //metoda uzavreni zakazky
     public void uzavritZakazku() {
 
         Calendar cal4 = Calendar.getInstance();
@@ -151,7 +175,7 @@ public class NewJFrame extends javax.swing.JFrame {
         cal4year = Integer.toString(cal4.get(Calendar.YEAR));
         cal4mounth = Integer.toString(cal4.get(Calendar.MONTH));
         cal4day = Integer.toString(cal4.get(Calendar.DAY_OF_MONTH));
-        cal4hour = Integer.toString(cal4.get(Calendar.HOUR));
+        cal4hour = Integer.toString(cal4.get(Calendar.HOUR_OF_DAY));
         cal4min = Integer.toString(cal4.get(Calendar.MINUTE));
 
 //konverze na format stringu bez nul
@@ -162,11 +186,17 @@ public class NewJFrame extends javax.swing.JFrame {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner", "root", "");
             Statement st = conn.createStatement();
 
+       ResultSet rs=  st.executeQuery("select state from termin where state = 2 and cislozak = "+strcisza+" ;" );
+            
+       if (rs.first()){
+            
             st.executeUpdate("UPDATE termin SET endmounth =" + cal4mounth + ",endday =" + cal4day
                     + ",endyear = " + cal4year + ",endhour = " + cal4hour + ",endminute =" + cal4min + ","
                     + "state=3 where cislozak = " + strcisza + ";");
-
-
+          
+       } else  JOptionPane.showMessageDialog (null, "Zakazku nelze otevrit, neni ve statusu pripravy", "Title", JOptionPane.ERROR_MESSAGE);
+       
+   
         } catch (Exception e) {
             System.out.println("nezdaril se prenos dat uzavreni zakazky");
             System.out.println(e.toString());
@@ -586,8 +616,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel30.setText("Délka role (m)");
 
-        c11.setText("jTextField1");
-
         jLabel34.setText("Výmět");
 
         cisrol.addActionListener(new java.awt.event.ActionListener() {
@@ -723,12 +751,12 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(c10, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c10, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(c11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(c11))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(vymet, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -807,6 +835,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel34))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vymet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -820,25 +854,20 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel17)
                                 .addComponent(jLabel18)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel34))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(vymet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(c11)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(c10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
 
         Table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -1014,18 +1043,37 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        
+               //yes = 0  no = 1
+          int b = JOptionPane.showConfirmDialog(null, "Opravdu chcete zmenit zakazku ?", "Title", 
+                     JOptionPane.YES_NO_OPTION);
+             
+          if (b==0){
+                  int cislozk = Integer.parseInt(ciszak.getText());//prevod na int labelu ciszak
+               KonverzeSpecifik.konverze(cislovyr.getText(), termhod.getText(), termmin.getText(),
+                cisrol.getText(), delrol.getText(),
+                deadhod.getText(), deadmin.getText(), c1.getText(), c2.getText(),
+                c3.getText(), c4.getText(), c5.getText(), c6.getText(), c7.getText(),
+                c8.getText(), c9.getText(), c10.getText(), c11.getText(), vymet.getText(),
+                termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex(),
+                sirrol.getText(),cislozk);
+                 
+                 
+                 
+           }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-
+    
+                int cislozk = 0;
         KonverzeSpecifik.konverze(cislovyr.getText(), termhod.getText(), termmin.getText(),
                 cisrol.getText(), delrol.getText(),
                 deadhod.getText(), deadmin.getText(), c1.getText(), c2.getText(),
                 c3.getText(), c4.getText(), c5.getText(), c6.getText(), c7.getText(),
                 c8.getText(), c9.getText(), c10.getText(), c11.getText(), vymet.getText(),
                 termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex(),
-                sirrol.getText());
+                sirrol.getText(),cislozk);
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1087,6 +1135,11 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
 
+               //yes = 0  no = 1
+  int b = JOptionPane.showConfirmDialog(null, "Chybne zadany format v cisle hlavni zakazky", "Title", 
+           JOptionPane.YES_NO_OPTION);
+  
+    if (b==0){
 
         int i = Table1.getSelectedRow();
         String cislozak;
@@ -1098,7 +1151,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         //aktualizace kalendare
         zobrazData();
-
+     } 
 
     }//GEN-LAST:event_jButton9ActionPerformed
 

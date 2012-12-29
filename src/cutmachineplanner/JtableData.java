@@ -50,7 +50,7 @@ try{
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner","root","");
 Statement st = conn.createStatement();    
 ResultSet rs = st.executeQuery("SELECT t.cislozak,t.starthour,t.startminute,t.endhour,t.endminute,d.druhpap,o.c1,o.c2,o.c3,o.c4,o.c5,o.c6,o.c7,o.c8,o.c9,o.c10,"
-+"o.c11 FROM termin t JOIN outputmaterial o ON t.cislozak=o.cislozak JOIN inputmaterial i ON o.cislozak=i.cislozak "
++"o.c11, t.state FROM termin t JOIN outputmaterial o ON t.cislozak=o.cislozak JOIN inputmaterial i ON o.cislozak=i.cislozak "
         + "JOIN druhpapiru d ON i.druhpap = d.cislopap " 
 +"WHERE t.startday = "+ den +" AND t.startmounth = "+ mesic +" AND t.startyear = "+rok+";" );
  
@@ -76,6 +76,9 @@ for (int a=7;a<=17;a++){
     r.addElement(rs.getString(a));
    
 }
+
+   r.addElement(rs.getString(18)); 
+      System.out.println(rs.getString(18));
       
    //   System.out.println(rs.getInt(15));
 

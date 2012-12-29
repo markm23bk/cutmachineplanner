@@ -35,7 +35,7 @@ public class KonverzeSpecifik {
                 String deadhod,String deadmin,String c1,String c2,
                 String c3,String c4,String c5,String c6,String c7,
                 String c8,String c9,String c10,String c11,String vymet
-            ,Calendar ter, Calendar dead,int druhpap,String sirrol)
+            ,Calendar ter, Calendar dead,int druhpap,String sirrol,int cislozk)
     {
      boolean formatok;
      boolean formatbob;
@@ -62,13 +62,19 @@ public class KonverzeSpecifik {
                  //tvorba objektu datumu -termin (start,konec) a deadline 
                  KonverzeDatum Dat = new KonverzeDatum (ter,dead,termhod,termmin,deadhod,deadmin,Doba);
                  //ziskani cisla zakazky
-                  GeneratorCisZak Cislozak = new GeneratorCisZak ();
-                 //kontrola kapacity
+                 GeneratorCisZak Cislozak = new GeneratorCisZak ();
+                 //kotrola kapacity
                  kapacitaok = KontrolaKapacity.volnaKapacita(Dat);
                 if(!kapacitaok){JOptionPane.showMessageDialog 
                   (null, "Neni Kapacita!!! ", "Title", JOptionPane.ERROR_MESSAGE);
                     return;};
+                
+                if(cislozk!=0){NewJFrame.vymazZakazku(Integer.toString(cislozk));
+                  Cislozak.nove = cislozk;};
                
+               
+                
+                 
                 
         
           
