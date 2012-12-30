@@ -58,35 +58,35 @@ public class KonverzeSpecifik {
                  //tvorbu objektu rozmeru boboin
                  KonverzeBobin Bobiny = new KonverzeBobin(c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11);
                  //ziskanni doby zakazky
-                 DobaVyroby Doba = new DobaVyroby (druhpap);
+                 DobaVyroby Doba = new DobaVyroby (druhpap,Specifika.delkrol);
                  //tvorba objektu datumu -termin (start,konec) a deadline 
                  KonverzeDatum Dat = new KonverzeDatum (ter,dead,termhod,termmin,deadhod,deadmin,Doba);
                  //ziskani cisla zakazky
                  GeneratorCisZak Cislozak = new GeneratorCisZak ();
                  //kotrola kapacity
-                 kapacitaok = KontrolaKapacity.volnaKapacita(Dat);
+                  
+                 kapacitaok = KontrolaKapacity.volnaKapacita(Dat,cislozk);
+                 
                 if(!kapacitaok){JOptionPane.showMessageDialog 
                   (null, "Neni Kapacita!!! ", "Title", JOptionPane.ERROR_MESSAGE);
                     return;};
-                
-                if(cislozk!=0){NewJFrame.vymazZakazku(Integer.toString(cislozk));
-                  Cislozak.nove = cislozk;};
+//                
+//               {NewJFrame.vymazZakazku(Integer.toString(cislozk));
+//                  Cislozak.nove = cislozk;};
                
-               
-                
-                 
-                
-        
-          
+                if (cislozk!=0){Cislozak.nove = cislozk;NewJFrame.vymazZakazku(Integer.toString(cislozk));};
+                    
+
          //ulozeni dat
          done = UlozData.dataUlozeni(Specifika,Bobiny,Dat,Cislozak,druhpap,Doba);
        
+         
        //vyhodnoceni ulozeni dat
        if (!done){ JOptionPane.showMessageDialog (null, "Ulozeni zakazky se nezdarilo, zadej znovu!", 
                  "Title", JOptionPane.ERROR_MESSAGE);}
-  }
+  
     
-    
+    }
     
     
     

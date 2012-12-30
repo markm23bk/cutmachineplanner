@@ -17,10 +17,7 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -43,7 +40,7 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
         timer();
-
+        nactiCombo();
 
 
 
@@ -201,9 +198,47 @@ public class NewJFrame extends javax.swing.JFrame {
             System.out.println("nezdaril se prenos dat uzavreni zakazky");
             System.out.println(e.toString());
         }
-
     }
+    
+    
+    
 
+    public void nactiCombo (){
+  
+      DefaultComboBoxModel cmodel = new DefaultComboBoxModel(); 
+         
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            System.out.println("Chyba driveru");
+            System.out.println(e.toString());
+        }
+        
+          try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner", "root", "");
+            Statement st = conn.createStatement();
+     
+      ResultSet rs = st.executeQuery("select druhpap from druhpapiru ;");
+          
+ while (rs.next()){
+       
+ cmodel.addElement(rs.getString(1));
+ druhpap.setModel(cmodel); 
+ }        
+
+        } catch (Exception e) {
+            System.out.println("nezdaril se prenos dat uzavreni zakazky");
+            System.out.println(e.toString());
+        }
+
+        
+    }
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1055,12 +1090,13 @@ public class NewJFrame extends javax.swing.JFrame {
                 deadhod.getText(), deadmin.getText(), c1.getText(), c2.getText(),
                 c3.getText(), c4.getText(), c5.getText(), c6.getText(), c7.getText(),
                 c8.getText(), c9.getText(), c10.getText(), c11.getText(), vymet.getText(),
-                termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex(),
+                termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex()+1,
                 sirrol.getText(),cislozk);
                  
                  
                  
            }
+           zobrazData();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1072,8 +1108,10 @@ public class NewJFrame extends javax.swing.JFrame {
                 deadhod.getText(), deadmin.getText(), c1.getText(), c2.getText(),
                 c3.getText(), c4.getText(), c5.getText(), c6.getText(), c7.getText(),
                 c8.getText(), c9.getText(), c10.getText(), c11.getText(), vymet.getText(),
-                termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex(),
+                termdat.getCalendar(), deaddat.getCalendar(), druhpap.getSelectedIndex()+1,
                 sirrol.getText(),cislozk);
+        
+         zobrazData();
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1210,21 +1248,8 @@ public class NewJFrame extends javax.swing.JFrame {
          */
 
 
-        // new DataTables();
+     //   new DataTables();
 
-
-
-        //prevod formatu int a string 
-
-//        String str = "123";
-//        int i = Integer.parseInt(str);
-//        int r = i+1;
-//        System.out.println(r);
-
-//        int a = 12;
-//        String str2= Integer.toString(a);
-//        str2 = str2 + 4;
-//        System.out.println(str2);
 
 
 

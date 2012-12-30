@@ -18,12 +18,16 @@ import java.util.Date;
 public class KontrolaKapacity {
    
     
-    public static boolean volnaKapacita(KonverzeDatum Dat){
+    public static boolean volnaKapacita(KonverzeDatum Dat,int cislozk){
    
         //incializace kapacitaok
   boolean kapacitaok = true;
    int pomocny;
-  
+   String except;
+   if (cislozk !=0)except=(" and cislozak !="+Integer.toString(cislozk));
+   else except="";
+   
+        System.out.println("kontrola kapacity / cislo zakazky je "+except);
    
      
   Calendar datezac = Calendar.getInstance();
@@ -31,7 +35,6 @@ public class KontrolaKapacity {
   Calendar datestart = Calendar.getInstance();
   Calendar dateend = Calendar.getInstance();
      
-
  
   String startrok =Integer.toString(Dat.termrok);
   String startmes =Integer.toString(Dat.termmes);
@@ -45,22 +48,22 @@ public class KontrolaKapacity {
   String endmi =Integer.toString(Dat.endmin);
        
        
-       
-        System.out.println(startrok);
-        System.out.println(startmes);
-         System.out.println(startden);
-        System.out.println(starthod);
-        System.out.println(startmin);
-        System.out.println(endro);
-        System.out.println(endme);
-        System.out.println(endde);
-         System.out.println(endho);
-        System.out.println(endmi);
-        
-        
-        
+//       
+//        System.out.println(startrok);
+//        System.out.println(startmes);
+//         System.out.println(startden);
+//        System.out.println(starthod);
+//        System.out.println(startmin);
+//        System.out.println(endro);
+//        System.out.println(endme);
+//        System.out.println(endde);
+//         System.out.println(endho);
+//        System.out.println(endmi);
+//        
+//        
+//        
   
-  
+  //konstruktorz kalendare zacatek a konec 
   datezac.set (Dat.termrok,Dat.termmes,Dat.termden,Dat.termhod,Dat.termin);
   datekon.set (Dat.endrok,Dat.endmes,Dat.endden,Dat.endhod,Dat.endmin);
 
@@ -77,8 +80,8 @@ Statement st = conn.createStatement();
 
 ResultSet rs = st.executeQuery("select startyear,startmounth,startday,starthour,startminute,"
         + " endyear,endmounth,endday,endhour,endminute from termin "
-        + "where (startyear ="+startrok+" and startmounth="+startmes+" and startday="+startden+")"
-        + "or (endyear="+startrok+" and endmounth ="+startmes+" and endday="+startden+");");
+        + "where ((startyear ="+startrok+" and startmounth="+startmes+" and startday="+startden+")"
+        + "or (endyear="+startrok+" and endmounth ="+startmes+" and endday="+startden+"))"+except+";");
 
 
 //    System.out.println(rs.getInt(1));

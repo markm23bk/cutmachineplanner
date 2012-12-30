@@ -42,9 +42,9 @@ Statement st = conn.createStatement();
 //
 //
 //
-//st.executeUpdate("CREATE TABLE druhpapiru (cislopap INT,druhpap VARCHAR(13),"
+//st.executeUpdate("CREATE TABLE druhpapiru (cislopap INT,druhpap VARCHAR(13),rychlost INT, "
 //                  + "CONSTRAINT pk_cislopap PRIMARY KEY (cislopap));");
-//
+////
 //st.executeUpdate("INSERT INTO druhpapiru VALUES (1,'CD BL');");
 //st.executeUpdate("INSERT INTO druhpapiru VALUES (2,'CD UB');");
 //
@@ -109,41 +109,48 @@ Statement st = conn.createStatement();
 //st.executeUpdate("INSERT INTO outputmaterial "
 //        + "VALUES (4,40,40,50,50,60,60,70,0,0,0,0);");
 
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (3,'VC TR');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (4,'UY TO');");
+
 
 //st.executeUpdate("INSERT INTO person "
-//        + "VALUES (1,'pepa','nova','user1','heslo1',1);");
-//st.executeUpdate("INSERT INTO person "
-//        + "VALUES (2,'petr','jouda','user2','heslo2',1);");
-//st.executeUpdate("INSERT INTO person "
-//        + "VALUES (3,'martin','semestra','user3','heslo3',2);");
+//        + "VALUES (1,'admin','admin','admin','1234',1);");
+
 //
-st.executeUpdate("INSERT INTO state "
-        + "VALUES (1,'CEKA');");
-st.executeUpdate("INSERT INTO state "
-        + "VALUES (2,'AKTIVNI');");
-st.executeUpdate("INSERT INTO state "
-        + "VALUES (3,'VYROBENO');");
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (1,'CEKA');");
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (2,'AKTIVNI');");
+//st.executeUpdate("INSERT INTO state "
+//        + "VALUES (3,'VYROBENO');");
 
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (1,'KS UB');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (2,'KS BL');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (3,'SE UB');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (4,'SE BL');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (5,'CL UB');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (6,'KP UB');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (7,'KP BL');");
-//st.executeUpdate("INSERT INTO druhpapiru "
-//        + "VALUES (8,'DU BL');");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (1,'KS UB/70',600);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (2,'KS UB/80',600);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (3,'KS UB/90',550);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (4,'KS UB/100',550);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (5,'KS BL/70',600);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (6,'KS BL/80',600);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (7,'KS BL/90',550);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (8,'KS BL/100',550);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (9,'BL HPO/80',400);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (10,'BL HPO/90',400);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (11,'KS UB MAG/80',530);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (12,'KS UB MAG/90',530);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (13,'KP UB MAG/90',470);");
+st.executeUpdate("INSERT INTO druhpapiru "
+        + "VALUES (14,'KP UB MAG/100',470);");
+
 
 
 }catch(Exception e){ System.out.println("Chyba volani, neprihlaseno");
