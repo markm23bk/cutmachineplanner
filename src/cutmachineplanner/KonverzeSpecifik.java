@@ -61,10 +61,12 @@ public class KonverzeSpecifik {
                  DobaVyroby Doba = new DobaVyroby (druhpap,Specifika.delkrol);
                  //tvorba objektu datumu -termin (start,konec) a deadline 
                  KonverzeDatum Dat = new KonverzeDatum (ter,dead,termhod,termmin,deadhod,deadmin,Doba);
+                 //kontrola vztahu mezi udaji 
+               if(kontrolLog(Bobiny,Specifika,Dat))return;
+                 
                  //ziskani cisla zakazky
                  GeneratorCisZak Cislozak = new GeneratorCisZak ();
-                 //kotrola kapacity
-                  
+                 //kotrola kapacity      
                  kapacitaok = KontrolaKapacity.volnaKapacita(Dat,cislozk);
                  
                 if(!kapacitaok){JOptionPane.showMessageDialog 
@@ -161,9 +163,47 @@ public class KonverzeSpecifik {
     
       
       if (format)return true; else return false;
-   
-      
+    
   } 
+  
+  
+  
+  //kontrola logiky mezi udaji
+  public static boolean kontrolLog(KonverzeBobin Bobiny,KonverzeSpecifik Specifika,KonverzeDatum Dat){
+      boolean logok=true;
+       int soucet;
+       Calendar zackal= Calendar.getInstance();
+       Calendar ukkal= Calendar.getInstance();
+       Calendar deadkal= Calendar.getInstance();
+       
+      //kontrola sire role a souctu bobin  
+      soucet= Specifika.sirrol - (Bobiny.c1+Bobiny.c2+Bobiny.c3+Bobiny.c4+Bobiny.c5+Bobiny.c6+Bobiny.c7+
+              Bobiny.c8+Bobiny.c8+Bobiny.c10+Bobiny.c11);
+      if (soucet<1) {logok = false;
+        JOptionPane.showMessageDialog (null, "Sire role je mensi nez soucet siri bobin,zadej znovu!!!", "Title", JOptionPane.ERROR_MESSAGE);
+        }
+      
+      
+      //kotrola dealine a teminu zahajeni a ukonceni
+      zackal.set(Dat.termrok, Dat.termmes, Dat.termden, Dat.termhod, Dat.termin);
+      ukkal.set(Dat.endrok, Dat.endmes, Dat.endden, Dat.endhod, Dat.endmin);
+      deadkal.set(Dat.deadrok, Dat.deadmes, Dat.deadden, Dat.deadhod,Dat.deadmin);
+      
+      if (zackal.compareTo(deadkal)!=-1){logok = false;
+           JOptionPane.showMessageDialog (null, "Termin zahajeni vyroby je po Deadlinu,zadej znovu!!!", "Title", JOptionPane.ERROR_MESSAGE);
+        }
+      
+          
+      if (ukkal.compareTo(deadkal)!=-1){logok = false;
+          JOptionPane.showMessageDialog (null, "Termin ukonceni vyroby je po Deadlinu,zadej znovu!!!", "Title", JOptionPane.ERROR_MESSAGE);
+        }
+      
+      
+      return logok;  
+  }
+  
+
+  
   //konstruktor
   public KonverzeSpecifik ( String cislovyr,String cisr,String delkr,String sirro ){    
     cisvyr = cislovyr;

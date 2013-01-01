@@ -23,6 +23,8 @@ public class GeneratorCisZak {
   System.out.println(e.toString());
 }
 
+        
+          
 try{
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner","root","");
 Statement st = conn.createStatement();

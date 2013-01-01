@@ -35,15 +35,15 @@ Statement st = conn.createStatement();
 //st.executeUpdate("DROP TABLE termin CASCADE");
 //st.executeUpdate("DROP TABLE outputmaterial CASCADE");
 //st.executeUpdate("DROP TABLE responsibility CASCADE");
-//st.executeUpdate("DROP TABLE druhpapiru CASCADE");
+st.executeUpdate("DROP TABLE druhpapiru CASCADE");
 //st.executeUpdate("DROP TABLE state CASCADE");
 //st.executeUpdate("DROP TABLE person CASCADE");
 //st.executeUpdate("DROP TABLE capacity CASCADE");
 //
 //
 //
-//st.executeUpdate("CREATE TABLE druhpapiru (cislopap INT,druhpap VARCHAR(13),rychlost INT, "
-//                  + "CONSTRAINT pk_cislopap PRIMARY KEY (cislopap));");
+st.executeUpdate("CREATE TABLE druhpapiru (cislopap INT,druhpap VARCHAR(13),rychlost INT,"
+                  + "CONSTRAINT pk_cislopap PRIMARY KEY (cislopap));");
 ////
 //st.executeUpdate("INSERT INTO druhpapiru VALUES (1,'CD BL');");
 //st.executeUpdate("INSERT INTO druhpapiru VALUES (2,'CD UB');");
@@ -123,33 +123,33 @@ Statement st = conn.createStatement();
 //        + "VALUES (3,'VYROBENO');");
 
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (1,'KS UB/70',600);");
+        + "VALUES (1,'KS UB/70',400);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (2,'KS UB/80',600);");
+        + "VALUES (2,'KS UB/80',400);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (3,'KS UB/90',550);");
+        + "VALUES (3,'KS UB/90',350);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (4,'KS UB/100',550);");
+        + "VALUES (4,'KS UB/100',350);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (5,'KS BL/70',600);");
+        + "VALUES (5,'KS BL/70',400);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (6,'KS BL/80',600);");
+        + "VALUES (6,'KS BL/80',300);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (7,'KS BL/90',550);");
+        + "VALUES (7,'KS BL/90',350);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (8,'KS BL/100',550);");
+        + "VALUES (8,'KS BL/100',350);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (9,'BL HPO/80',400);");
+        + "VALUES (9,'BL HPO/80',200);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (10,'BL HPO/90',400);");
+        + "VALUES (10,'BL HPO/90',200);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (11,'KS UB MAG/80',530);");
+        + "VALUES (11,'KS UB MAG/80',330);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (12,'KS UB MAG/90',530);");
+        + "VALUES (12,'KS UB MAG/90',330);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (13,'KP UB MAG/90',470);");
+        + "VALUES (13,'KP UB MAG/90',270);");
 st.executeUpdate("INSERT INTO druhpapiru "
-        + "VALUES (14,'KP UB MAG/100',470);");
+        + "VALUES (14,'KP UB MAG/100',270);");
 
 
 

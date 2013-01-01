@@ -27,7 +27,7 @@ public class JtableData {
     
  public static Vector vytvorData (Calendar cal){
                     
-     
+   System.out.println("kotrola kalendare"+cal.get(Calendar.DAY_OF_MONTH));
  String den = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));           
  String mesic = Integer.toString(cal.get(Calendar.MONTH)+1); 
  String rok = Integer.toString(cal.get(Calendar.YEAR)); 
@@ -39,7 +39,7 @@ public class JtableData {
  
    
  Vector <Object> row = new Vector <Object>();
-  row.removeAllElements();
+  
  
   try{ Class.forName("com.mysql.jdbc.Driver"); }
   catch(Exception e){ System.out.println("Chyba driveru");
@@ -49,6 +49,7 @@ public class JtableData {
 try{
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner","root","");
 Statement st = conn.createStatement();    
+//dotaz na data aktualniho dne 
 ResultSet rs = st.executeQuery("SELECT t.cislozak,t.starthour,t.startminute,t.endhour,t.endminute,d.druhpap,o.c1,o.c2,o.c3,o.c4,o.c5,o.c6,o.c7,o.c8,o.c9,o.c10,"
 +"o.c11, t.state FROM termin t JOIN outputmaterial o ON t.cislozak=o.cislozak JOIN inputmaterial i ON o.cislozak=i.cislozak "
         + "JOIN druhpapiru d ON i.druhpap = d.cislopap " 

@@ -11,7 +11,7 @@ import java.util.Calendar;
  * @author petr
  */
 public class KonverzeDatum {
-    
+ 
   Integer termden;
   Integer termmes;
   Integer termrok;

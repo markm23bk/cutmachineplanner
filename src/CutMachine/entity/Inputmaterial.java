@@ -1,5 +1,5 @@
 package CutMachine.entity;
-// Generated 25.12.2012 11:45:30 by Hibernate Tools 3.2.1.GA
+// Generated 31.12.2012 21:28:25 by Hibernate Tools 3.2.1.GA
 
 
 

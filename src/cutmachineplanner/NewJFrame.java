@@ -30,9 +30,12 @@ import org.hibernate.Session;
  * @author petr
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+    
     public static String cislozakazky;
+    //aktualne prihlasena osoba 
     public static int osoba;
+    
+   
 
     /**
      * Creates new form NewJFrame
@@ -41,6 +44,7 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         timer();
         nactiCombo();
+        hlidejTerminy();
 
 
 
@@ -49,22 +53,25 @@ public class NewJFrame extends javax.swing.JFrame {
     //metoda generovani data a casu
     public void timer() {
 
-
+       
+       
         javax.swing.Timer z = new javax.swing.Timer(1000,
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent e) {
-//dt=new JLable(“”);
-
+                        System.out.println("timer"); 
+                        
                         Calendar cz = Calendar.getInstance();
                         String dtt1 = ("" + cz.get(Calendar.DAY_OF_MONTH) + "/" + (cz.get(Calendar.MONTH) + 1) + "/" + cz.get(Calendar.YEAR));
 
                         int th = cz.get(Calendar.HOUR_OF_DAY); //d.getHours();
                         int tm = cz.get(Calendar.MINUTE); //d.getMinutes();
                         int ts = cz.get(Calendar.SECOND); //d.getSeconds();
-
+                        
                         timer.setText(th + ":" + tm + ":" + ts);
                         date.setText(dtt1);
+                        //nacte terminy dne , kdyz nastane novy den
+                        
                     }
                 });
         z.start();
@@ -75,6 +82,7 @@ public class NewJFrame extends javax.swing.JFrame {
     public void zobrazData() {
 
         DefaultTableModel tableModel = new DefaultTableModel();
+        System.out.println("predavane datum jtabledata "+Datum.getCalendar().get(Calendar.DAY_OF_MONTH));
         tableModel.setDataVector(JtableData.vytvorData(Datum.getCalendar()), JtableModel.JtableMod());
         Table1.setModel(tableModel);
         
@@ -85,7 +93,98 @@ public class NewJFrame extends javax.swing.JFrame {
        
         
     }
+    
+    //nacte termi zakazek na aktualni den do vectoru
+    public void hlidejTerminy(){
+         
+         
+        javax.swing.Timer x = new javax.swing.Timer(60000,
+                new ActionListener() {
 
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("hlidej term");
+            Calendar pomkal = Calendar.getInstance();
+            Calendar aktkal = Calendar.getInstance();
+            pomkal= aktkal;
+            String rok = Integer.toString(aktkal.get(Calendar.YEAR));
+            String mes = Integer.toString(aktkal.get(Calendar.MONTH)+1);
+            String den = Integer.toString(aktkal.get(Calendar.DAY_OF_MONTH));
+            
+            
+           try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception v) {
+            System.out.println("Chyba driveru");
+            System.out.println(e.toString());
+        }
+           
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cutPlanner", "root", "");
+            Statement st = conn.createStatement();
+          
+          //kontrola pocatecnich terminu
+            ResultSet rs=  st.executeQuery("select starthour,startminute,cislozak from termin where state =1 and"
+                            + "(startyear = "+rok+" and startmounth="+mes+" and startday="+den+");" );
+            
+            System.out.println(("select starthour,startminute,cislozak from termin where state =1 and"
+                            + "(startyear = "+rok+" and startmounth="+mes+" and startday="+den+");" ));
+            
+         while (rs.next()){
+     
+            pomkal.set(aktkal.get(Calendar.YEAR),aktkal.get(Calendar.MONTH),aktkal.get(Calendar.DAY_OF_MONTH),
+                            rs.getInt(1),rs.getInt(2));
+            
+            if (pomkal.compareTo(aktkal)!=1) 
+            JOptionPane.showMessageDialog (null, "Je prekrocen termin zacatku vyroby zakazky "+JtableData.ciselFormat(rs.getString(3),8), "Title", JOptionPane.ERROR_MESSAGE);
+                 
+                             
+         }
+           
+         //kontrola konecnych terminu
+           rs=  st.executeQuery("select endhour,endminute,cislozak from termin where state =2 and"
+                            + "(startyear = "+rok+" and startmounth="+mes+" and startday="+den+");" );
+           
+            while (rs.next()){
+             
+                pomkal.set(aktkal.get(Calendar.YEAR),aktkal.get(Calendar.MONTH),aktkal.get(Calendar.DAY_OF_MONTH),
+                            rs.getInt(1),rs.getInt(2));
+             
+            if (pomkal.compareTo(aktkal)!=1) 
+                JOptionPane.showMessageDialog (null, "Je prekrocen termin ukonceni vyroby zakazky "+JtableData.ciselFormat(rs.getString(3),8)+"!!!!!", "Title", JOptionPane.ERROR_MESSAGE);
+                }
+            
+            //hlaseni blizicich se deadlinu kazdou hodinu
+            if (aktkal.get(Calendar.MINUTE)==0) {
+                rs=  st.executeQuery("select d.deadhour,d.deadminute,cislozak from termin t join deadline d using(cislozak)"
+                        + "where state !=3 and (startyear = "+rok+" and startmounth="+mes+" and startday="+den+");" );
+                   while (rs.next()){
+             
+                pomkal.set(aktkal.get(Calendar.YEAR),aktkal.get(Calendar.MONTH),aktkal.get(Calendar.DAY_OF_MONTH),
+                            rs.getInt(1),rs.getInt(2));
+                
+              //jestlize termin deadlinu a aktualniho casu je mensi nez 2hodiny
+            if (Math.abs(pomkal.get(Calendar.HOUR_OF_DAY)-aktkal.get(Calendar.HOUR_OF_DAY))<2)
+                JOptionPane.showMessageDialog (null, "Blizi se deadline zakazky "+JtableData.ciselFormat(rs.getString(3),8)+"!!!!!", "Title", JOptionPane.ERROR_MESSAGE);
+               
+            else 
+             //overeni zda termin zakazky je jiz ve zpozdeni 
+                if (pomkal.compareTo(aktkal)!=1)
+                JOptionPane.showMessageDialog (null, "Dealine zakazky "+JtableData.ciselFormat(rs.getString(3),8)+" jiz probehl !!!!!", "Title", JOptionPane.ERROR_MESSAGE);; 
+            
+            }
+           
+            }
+} catch (Exception v) {
+            System.out.println("nezdaril se prenos otevreni zakazky");
+            System.out.println(e.toString());   
+    }
+ 
+                    }
+                    
+                });
+        
+         x.start();
+    }
     
     
     
@@ -143,11 +242,8 @@ public class NewJFrame extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
+    
 
-    
-    
-    
-    
     
     //metoda uzavreni zakazky
     public void uzavritZakazku() {
@@ -311,10 +407,6 @@ public class NewJFrame extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton5 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton6 = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
-        jButton12 = new javax.swing.JButton();
-        jSeparator6 = new javax.swing.JToolBar.Separator();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -388,9 +480,9 @@ public class NewJFrame extends javax.swing.JFrame {
         date = new javax.swing.JLabel();
         timer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jitemos = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jButton3.setText("jButton3");
 
@@ -454,8 +546,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton4);
         jToolBar1.add(jSeparator4);
 
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\Save.png")); // NOI18N
-        jButton5.setText("Ulozit");
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\Exit.png")); // NOI18N
+        jButton5.setText("LogOut");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -465,28 +557,6 @@ public class NewJFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator3);
 
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\Update.png")); // NOI18N
-        jButton6.setText("jButton6");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setMaximumSize(new java.awt.Dimension(100, 100));
-        jButton6.setMinimumSize(new java.awt.Dimension(100, 100));
-        jButton6.setPreferredSize(new java.awt.Dimension(50, 50));
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-        jToolBar1.add(jSeparator5);
-
-        jButton12.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\History (2).png")); // NOI18N
-        jButton12.setText("jButton12");
-        jButton12.setFocusable(false);
-        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton12.setMaximumSize(new java.awt.Dimension(100, 100));
-        jButton12.setMinimumSize(new java.awt.Dimension(100, 100));
-        jButton12.setPreferredSize(new java.awt.Dimension(50, 50));
-        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton12);
-        jToolBar1.add(jSeparator6);
-
         jPanel1.setBackground(new java.awt.Color(255, 0, 51));
         jPanel1.setPreferredSize(new java.awt.Dimension(50, 100));
 
@@ -494,7 +564,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 1069, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,7 +598,7 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         jButton9.setIcon(new javax.swing.ImageIcon("C:\\Users\\petr\\Documents\\NetBeansProjects\\CutMachinePlanner\\icons\\Trash.png")); // NOI18N
-        jButton9.setText("Vymaz");
+        jButton9.setText("Odstran");
         jButton9.setPreferredSize(new java.awt.Dimension(10, 10));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1056,15 +1126,25 @@ public class NewJFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
-        jMenu1.setText("File");
+        jitemos.setText("Registrace");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
+        jMenuItem1.setText("Osoba");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jitemos.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem2.setText("Material");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jitemos.add(jMenuItem2);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jitemos);
 
         setJMenuBar(jMenuBar1);
 
@@ -1078,7 +1158,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        
+        //kotrola opravneni 
+         if (osoba!=1){ JOptionPane.showMessageDialog (null, "Pro tuto akci nemas opravneni!!!", "Title", JOptionPane.ERROR_MESSAGE);return;};
+         
                //yes = 0  no = 1
           int b = JOptionPane.showConfirmDialog(null, "Opravdu chcete zmenit zakazku ?", "Title", 
                      JOptionPane.YES_NO_OPTION);
@@ -1101,6 +1183,8 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        //kotrola opravneni
+    if (osoba!=1){ JOptionPane.showMessageDialog (null, "Pro tuto akci nemas opravneni!!!", "Title", JOptionPane.ERROR_MESSAGE);return;};
     
                 int cislozk = 0;
         KonverzeSpecifik.konverze(cislovyr.getText(), termhod.getText(), termmin.getText(),
@@ -1172,7 +1256,8 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-
+ if (osoba!=1){ JOptionPane.showMessageDialog (null, "Pro tuto akci nemas opravneni!!!", "Title", JOptionPane.ERROR_MESSAGE);return;};
+ 
                //yes = 0  no = 1
   int b = JOptionPane.showConfirmDialog(null, "Chybne zadany format v cisle hlavni zakazky", "Title", 
            JOptionPane.YES_NO_OPTION);
@@ -1212,6 +1297,20 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_vymetActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        //kotrola opravneni 
+         if (osoba!=1){ JOptionPane.showMessageDialog (null, "Pro tuto akci nemas opravneni!!!", "Title", JOptionPane.ERROR_MESSAGE);return;};
+       
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        //kotrola opravneni 
+         if (osoba!=1){ JOptionPane.showMessageDialog (null, "Pro tuto akci nemas opravneni!!!", "Title", JOptionPane.ERROR_MESSAGE);return;};
+         
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1248,7 +1347,7 @@ public class NewJFrame extends javax.swing.JFrame {
          */
 
 
-     //   new DataTables();
+       //new DataTables();
 
 
 
@@ -1322,13 +1421,11 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1361,10 +1458,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1376,10 +1472,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JToolBar.Separator jSeparator5;
-    private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu jitemos;
     private javax.swing.JTextField sirrol;
     private com.toedter.calendar.JDateChooser termdat;
     private javax.swing.JTextField termhod;
